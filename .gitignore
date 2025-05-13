@@ -1,6 +1,8 @@
-# Ignorar carpetas 
 /.vscode
 /obj
 # Ignorar archivos basura
 *.dat
 *.wav
+!/test/*.dat
+!/test/*.wav
+*.exe

@@ -1,106 +1,95 @@
-# **Procesamiento de Archivos de Audio**
+# Procesamiento de Audio
 
-Este proyecto en C proporciona herramientas para procesar archivos de audio, permitiendo la lectura, manipulación e inversión de datos de audio. Soporta audio mono y estéreo, utilizando pilas (implementadas con arrays o listas enlazadas) para almacenar y manipular los datos.
+Este programa en C permite procesar archivos de audio, soportando tanto audio mono como estéreo, y utilizando pilas (implementadas con arreglos o listas enlazadas) para la manipulación de los datos.
 
----
+\#\# Estructura del Proyecto
 
-## **Características**
+.  
+├── include  
+│ ├── boolean.h \# Definiciones de tipos booleanos (TRUE, FALSE).  
+│ ├── confirm.h \# Macros para manejo de errores y aserciones.  
+│ ├── metodos\_main.h \# Declaraciones de funciones para la entrada/salida y procesamiento principal.  
+│ ├── pila.h \# Declaraciones de las funciones y estructuras de la pila (arreglo y lista enlazada).  
+│ └── stereo.h \# Declaraciones de funciones y estructuras para el manejo de audio estéreo.  
+├── src  
+│ ├── main.c \# Punto de entrada del programa, maneja la lógica principal.  
+│ ├── metodos\_main.c \# Implementaciones de las funciones de entrada/salida y procesamiento.  
+│ ├── pila.c \# Implementaciones de las funciones de la pila.  
+│ └── Stereo.c \# Implementaciones de las funciones de manejo de audio estéreo.  
+├── test \# Contiene archivos de prueba.  
+│ ├── input.dat \# Archivo de entrada de prueba para audio mono.  
+│ ├── audio\_stereo.dat \# Archivo de entrada de prueba para audio estéreo.  
+│ └── audio\_stereo.wav \# Otro archivo de prueba.  
+├── Makefile \# Archivo para compilar el proyecto.  
+├── Readme.MD \# Este archivo (documentación del proyecto).  
+└── proyecto2.exe \# El ejecutable compilado.
 
-* **Lectura de archivos de audio** desde archivos de entrada.
-* **Almacenamiento en pilas**, con opción entre array dinámico o lista enlazada.
-* **Procesamiento de audio mono y estéreo.**
-* **Escritura de archivos de audio** tras el procesamiento.
-* **Interfaz de línea de comandos** para configurar el comportamiento del programa.
+\#\# Dependencias
 
----
+\* Librerías estándar de C (stdio.h, stdlib.h, string.h).
 
-## **Estructura del Proyecto**
+\#\# Compilación
 
-* **`main.c`**: Punto de entrada del programa. Gestiona el flujo general.
-* **`metodos_main.c` / `metodos_main.h`**: Funciones para procesar argumentos (`entradaTerminal`), leer archivos (`readArchivoEntrada`) y escribir archivos (`writeArchivoSalida`).
-* **`pila.c` / `pila.h`**: Implementación de pilas con array dinámico y lista enlazada. Funciones: `push`, `pop`, `top`, `isEmpty`, `destruir`.
-* **`Stereo.c` / `stereo.h`**: Define la estructura `Stereo`. Funciones para cargar audio en una pila (`cargarAudioEnPila`) e invertirlo y guardarlo (`guardarAudioInvertido`).
-* **`confirm.h`**: Macros para manejo de errores y depuración (`CONFIRM_RETURN`, `CONFIRM_RETVAL`, etc.).
-* **`boolean.h`**: Define constantes booleanas (`BOOLEAN`, `TRUE`, `FALSE`, `OK`, `ERROR`).
+Para compilar el proyecto, puedes usar el \`Makefile\` incluido.  Abre una terminal en el directorio del proyecto y ejecuta:
 
----
-
-## **Compilación**
-
-Este proyecto utiliza `make`. Para compilar:
-
-```bash
+\`\`\`bash  
 make
-```
 
-Esto generará un ejecutable llamado `proyecto2`.
+Esto generará el ejecutable proyecto2.exe (o el nombre apropiado para tu sistema operativo).
 
-Para limpiar los archivos intermedios:
+## **Ejecución**
 
-```bash
-make clean
-```
+El programa se ejecuta desde la línea de comandos con los siguientes argumentos:
 
----
+proyecto2.exe \-input \<archivo\_entrada\> \-output \<archivo\_salida\> \[-type \<array|list\>\] \[-channels \<mono|stereo\>\] \[-help\]
 
-## **Uso**
+* \-input \<archivo\_entrada\>: Especifica el archivo de entrada de audio.  
+* \-output \<archivo\_salida\>: Especifica el archivo de salida donde se guardará el audio procesado.  
+* \-type \<array|list\>: (Opcional) Especifica la implementación de la pila a usar: array (arreglo dinámico) o list (lista enlazada). Por defecto es array.  
+* \-channels \<mono|stereo\>: (Opcional) Especifica el tipo de audio: mono o stereo. Por defecto es mono.  
+* \-help: (Opcional) Muestra la ayuda del programa.
 
-El programa se ejecuta desde la línea de comandos:
+**Ejemplos:**
 
-```bash
-./proyecto2 -input <archivo_entrada> -output <archivo_salida> [-type <array|list>] [-channels <mono|stereo>] [-help]
-```
+* Procesar un archivo mono usando una pila de arreglos:  
+  Bash  
+  proyecto2.exe \-input entrada.dat \-output salida.dat \-type array \-channels mono
 
-### Argumentos:
+* Procesar un archivo estéreo usando una pila de listas enlazadas:  
+  Bash  
+  proyecto2.exe \-input stereo\_in.dat \-output stereo\_out.dat \-type list \-channels stereo
 
-* `<archivo_entrada>`: Archivo con los datos de audio.
-* `<archivo_salida>`: Archivo donde se escribirá el audio procesado.
-* `-type <array|list>`: (Opcional) Tipo de pila: `array` (por defecto) o `list`.
-* `-channels <mono|stereo>`: (Opcional) Tipo de audio: `mono` (por defecto) o `stereo`.
-* `-help`: (Opcional) Muestra el mensaje de ayuda.
+## **Funcionalidades**
 
-### Valores por defecto:
+1. **Entrada/Salida de Audio:**  
+   * Lee datos de archivos de entrada en diferentes formatos.  
+   * Escribe datos de audio procesados en archivos de salida.  
+2. **Soporte Mono/Estéreo:**  
+   * Procesa archivos de audio tanto mono como estéreo.  
+3. **Implementación de Pilas:**  
+   * Implementa pilas utilizando dos estructuras de datos:  
+     * Arreglos dinámicos (APila).  
+     * Listas enlazadas (LPila).  
+   * Permite al usuario seleccionar la implementación de la pila en tiempo de ejecución.  
+4. **Procesamiento de Audio:**  
+   * Invierte el orden de las muestras de audio utilizando las pilas.  
+5. **Manejo de Errores:**  
+   * Incluye macros (confirm.h) para facilitar el manejo de errores y las aserciones.  
+   * Reporta errores en la entrada de argumentos y en la lectura/escritura de archivos.
 
-* `Type`: `array`
-* `Channels`: `mono`
-* `Input`: `../test/input.dat`
-* `Output`: `output.dat`
+## **Estructuras de Datos Clave**
 
----
+* Stereo (en stereo.h): Estructura para representar una muestra de audio estéreo (canal izquierdo y derecho).  
+* APila (en pila.h): Estructura para la implementación de la pila con arreglos dinámicos.  
+* LPila (en pila.h): Estructura para la implementación de la pila con listas enlazadas.
 
-## **Ejemplos de Uso**
+## **Notas Adicionales**
 
-Procesar archivo `audio.txt` como mono con pila `array`:
-
-```bash
-./proyecto2 -input audio.txt -output salida.txt -channels mono -type array
-```
-
-Procesar archivo estéreo con pila de lista enlazada:
-
-```bash
-./proyecto2 -input estereo.dat -output invertido.dat -channels stereo -type list
-```
-
-Usar todos los valores por defecto:
-
-```bash
-./proyecto2
-```
-
----
-
-## **Notas Importantes**
-
-* El programa incluye manejo básico de errores, pero se puede mejorar.
-* El rendimiento depende del tamaño del archivo y del tipo de pila.
-* Asegúrese de que los archivos de entrada estén en el formato esperado: texto plano con un valor numérico por línea representando muestras de audio.
-
----
+* El código está documentado con comentarios para facilitar la comprensión.  
+* Se utilizan macros para mejorar la legibilidad y el mantenimiento del código.  
+* Se incluye un manejo básico de errores, pero se puede ampliar para hacerlo más robusto.
 
 ## **Autores**
 
-* Héctor Daniel Argüello Tejera — Implementación de pila con arreglo dinámico.
-* Francisco David Medina Lourenzo — Implementación de pila con lista enlazada y funcionalidades adicionales.
-
----
+* Héctor Daniel Argüello Tejera (Implementación de Pila con arreglo dinámico)  
+* Francisco David Medina Lourenzo (Implementación de Pila con lista ligada, funciones entradaTerminal).

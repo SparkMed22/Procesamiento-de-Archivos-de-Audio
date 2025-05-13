@@ -31,20 +31,8 @@ void printFormaDeUso()
 /**
  * Implementacion de METODOS_MAIN_H
  */
-
-/**
- * Implementacion de Pila con lista ligada 
- * Alumno: Francisco David Medina Lourenzo
- */
 BOOLEAN entradaTerminal(int argc, char **argv, char **input, char **output, char **type, char **channels)
 {
-    // Variables para almacenar los aargumentos de entrada y salida
-    *input = "../test/input.dat";
-    *output = "output.dat";
-    // Variables con doble opcion  -type array|list -channels mono|stereo
-    *type = "array";
-    *channels = "mono";
-
 
     for (size_t i = 1; i < argc; i++)
     {
